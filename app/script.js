@@ -1,5 +1,4 @@
-function getWeather() {
-    const apiKey = 'API-KEY';
+function getWeather(apiKey) {
     const city = document.getElementById('city').value;
 
     if (!city) {
@@ -78,7 +77,8 @@ function displayHourlyForecast(hourlyData) {
     next24Hours.forEach(item => {
         const dateTime = new Date(item.dt * 1000); // Convert timestamp to milliseconds
         const hour = dateTime.getHours();
-        const temperature = Math.round(item.main.temp - 273.15); // Convert to Celsius
+        const celsius = Math.round(item.main.temp - 273.15); // Convert to Celsius
+        const temperature = Math.round(((9/5) * celsius) + 32) // Convert to Fahrenheit
         const iconCode = item.weather[0].icon;
         const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
 
@@ -86,7 +86,7 @@ function displayHourlyForecast(hourlyData) {
             <div class="hourly-item">
                 <span>${hour}:00</span>
                 <img src="${iconUrl}" alt="Hourly Weather Icon">
-                <span>${temperature}°C</span>
+                <span>${temperature}°F</span>
             </div>
         `;
 
